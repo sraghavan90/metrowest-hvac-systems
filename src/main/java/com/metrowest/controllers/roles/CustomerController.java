@@ -1,4 +1,4 @@
-package com.metrowest.controllers;
+package com.metrowest.controllers.roles;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

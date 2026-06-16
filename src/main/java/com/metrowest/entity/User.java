@@ -23,11 +23,11 @@ public class User
     public User() { }
 
     public void setUsername(String username) { this.username = username; }
-    public String getUsername()              { return username; }
+    public String getUsername() { return username; }
 
     public void setPassword_hash(String passwordHash) { this.password_hash = passwordHash; }
-    public String getPassword_hash()                  { return password_hash; }
+    public String getPassword_hash() { return password_hash; }
 
     public void setRole(Role role) { this.role = role; }
-    public Role getRole()          { return role; }
+    public Role getRole() { return role; }
 }

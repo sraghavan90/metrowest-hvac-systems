@@ -1,12 +1,10 @@
 package com.metrowest.controllers;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -22,7 +20,7 @@ public class LoginController
     }
 
     @PostMapping(value = "/role_check", produces = MediaType.TEXT_HTML_VALUE)
-    public void hello(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException
+    public void hello(HttpServletResponse response, Authentication authentication) throws IOException
     {
         var roles = authentication.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
