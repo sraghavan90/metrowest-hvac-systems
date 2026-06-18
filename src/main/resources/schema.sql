@@ -1,9 +1,16 @@
 PRAGMA foreign_keys = ON;
 
--- Table structure for table `clients`
 CREATE TABLE IF NOT EXISTS `users` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `email` TEXT NOT NULL,
     `username` TEXT NOT NULL,
     `role` TEXT NOT NULL,
     `password_hash` TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `products` (
+   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+   `name` TEXT NOT NULL,
+   `type` TEXT NOT NULL,
+   `price` DECIMAL(10, 2) NOT NULL
 );

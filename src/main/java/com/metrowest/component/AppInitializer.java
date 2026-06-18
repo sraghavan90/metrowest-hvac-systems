@@ -6,20 +6,19 @@ import com.metrowest.repo.UserRepository;
 import com.metrowest.util.PasswordGenerator;
 import org.jspecify.annotations.NonNull;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserInitializer implements CommandLineRunner
+public class AppInitializer implements CommandLineRunner
 {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserInitializer(UserRepository userRepository)
+    public AppInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder)
     {
         this.userRepository = userRepository;
-        this.passwordEncoder = new BCryptPasswordEncoder();
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -29,6 +28,7 @@ public class UserInitializer implements CommandLineRunner
         {
             User admin = new User();
             String password = PasswordGenerator.generateRandomPassword(20);
+            admin.setEmail("admin@metrowesthvac.com");
             admin.setUsername("admin");
             admin.setPassword_hash(passwordEncoder.encode(password));
             admin.setRole(Role.ADMIN);

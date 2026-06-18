@@ -8,10 +8,15 @@
 <form th:action="@{/logout}" method="post">
     <button type="submit">Log Out</button>
 </form>
+
 <p>What's up admin?</p>
 
 <h2>New User</h2>
 <form method="post" th:action="@{/admin/new_user}">
+    <label> Email
+        <input type="text" name="email">
+    </label>
+    <br>
     <label> Username
         <input type="text" name="username">
     </label>
@@ -21,7 +26,7 @@
     </label>
     <br>
     <label> Role
-        <select name="role" id="cars">
+        <select name="role">
             <option value="ADMIN">Admin</option>
             <option value="MANAGER">Manager</option>
             <option value="TECHNICIAN">Technician</option>
@@ -37,7 +42,8 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Name</th>
+        <th>Email Address</th>
+        <th>User Name</th>
         <th>Role</th>
         <th>PW Hash</th>
     </tr>
@@ -45,9 +51,55 @@
     <tbody>
     <tr th:each="user : ${users}">
         <td th:text="${user.id}"></td>
+        <td th:text="${user.email}"></td>
         <td th:text="${user.username}"></td>
         <td th:text="${user.role}"></td>
         <td th:text="${user.password_hash}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>New Product</h2>
+<form method="post" th:action="@{/admin/new_product}">
+    <label> Name
+        <input type="text" name="name">
+    </label>
+    <br>
+    <label> Price
+        <input type="number" step="0.01" name="price">
+    </label>
+    <br>
+    <label> Type
+        <select name="type">
+            <option value="SERVICE">Service</option>
+            <option value="EQUIPMENT">Equipment</option>
+            <option value="FASTENER">Fastener</option>
+            <option value="FILTER">Filter</option>
+            <option value="ELECTRONIC">Electronic</option>
+            <option value="CHEMICAL">Chemical</option>
+            <option value="DUCT">Duct</option>
+        </select>
+    </label>
+    <br>
+    <input type="submit">
+</form>
+
+<h2>Products</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.type}"></td>
+        <td th:text="${product.price}"></td>
     </tr>
     </tbody>
 </table>

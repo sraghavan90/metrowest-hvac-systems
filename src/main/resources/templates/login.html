@@ -9,6 +9,8 @@
     Invalid username and password.</div>
 <div th:if="${param.logout}">
     You have been logged out.</div>
+<div th:if="${new_user}">
+    User <span th:text="${new_user}"></span> was created</div>
 <form th:action="@{/login}" method="post">
     <div>
         <label>

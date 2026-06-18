@@ -19,6 +19,8 @@ dependencies {
     implementation 'org.xerial:sqlite-jdbc:3.53.2.0'
     implementation 'org.hibernate.orm:hibernate-community-dialects'
 
+    implementation 'commons-validator:commons-validator:1.10.1'
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
