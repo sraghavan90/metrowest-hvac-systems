@@ -1,7 +1,7 @@
 package com.metrowest.component;
 
 import com.metrowest.entity.Role;
-import com.metrowest.entity.User;
+import com.metrowest.entity.UserEntry;
 import com.metrowest.repo.UserRepository;
 import com.metrowest.util.PasswordGenerator;
 import org.jspecify.annotations.NonNull;
@@ -26,7 +26,7 @@ public class AppInitializer implements CommandLineRunner
     {
         if (!userRepository.existsByUsername("admin"))
         {
-            User admin = new User();
+            UserEntry admin = new UserEntry();
             String password = PasswordGenerator.generateRandomPassword(20);
             admin.setEmail("admin@metrowesthvac.com");
             admin.setUsername("admin");

@@ -1,5 +1,6 @@
 package com.metrowest.services;
 
+import com.metrowest.entity.UserEntry;
 import com.metrowest.repo.UserRepository;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,15 +23,17 @@ public class UserService implements UserDetailsService
         this.userRepository = userRepository;
     }
 
+    private static User convert_user(UserEntry user_entry)
+    {
+        var authority = new SimpleGrantedAuthority(user_entry.getRole().role_string());
+        return new User(user_entry.getUsername(), user_entry.getPassword_hash(), List.of(authority));
+    }
+
     @Override
     public @NonNull UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException
     {
         return userRepository.findByUsername(username)
-            .map(u ->
-            {
-                var auth = new SimpleGrantedAuthority(u.getRole().role_string());
-                return new User(u.getUsername(), u.getPassword_hash(), List.of(auth));
-            })
-            .orElseGet(()->new User(username, null, Collections.emptyList()));
+            .map(UserService::convert_user)
+            .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }

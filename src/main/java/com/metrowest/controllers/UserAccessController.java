@@ -1,7 +1,7 @@
 package com.metrowest.controllers;
 
 import com.metrowest.entity.Role;
-import com.metrowest.entity.User;
+import com.metrowest.entity.UserEntry;
 import com.metrowest.repo.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -60,7 +60,7 @@ public class UserAccessController
             return "error";
         }
 
-        var user = new User();
+        var user = new UserEntry();
         user.setEmail(email);
         user.setUsername(username);
         user.setRole(Role.CUSTOMER);
@@ -78,6 +78,8 @@ public class UserAccessController
         var roles = authentication.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .toList();
+
+        System.out.println("principal: " + authentication.getPrincipal());
 
         var redirect = "/";
 

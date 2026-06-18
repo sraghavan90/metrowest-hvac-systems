@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,5 +9,37 @@
     <button type="submit">Log Out</button>
 </form>
 <p>Hi, customer! Thanks for doing business with us :-)</p>
+
+<div th:if="${message}">
+    <h3>Message:</h3><h3 th:text="${message}"></h3>
+</div>
+
+<!-- TODO: need to add form with the ability to add <input> entries that have the correct names of
+        products that exist in the DB. Needs to look like this:
+        <input type="number" name="quantities['apples']" value="10" />
+        where "apples" is the name of a product. Though, it would be more robust to use the
+        product ID, name may work just as a first approach.
+-->
+
+<h2>Orders</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+<!--        <th>Name</th>-->
+<!--        <th>Type</th>-->
+<!--        <th>Price</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+<!--        <td th:text="${product.name}"></td>-->
+<!--        <td th:text="${product.type}"></td>-->
+<!--        <td th:text="${product.price}"></td>-->
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

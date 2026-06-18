@@ -3,7 +3,7 @@ package com.metrowest.controllers.roles;
 import com.metrowest.entity.Product;
 import com.metrowest.entity.ProductType;
 import com.metrowest.entity.Role;
-import com.metrowest.entity.User;
+import com.metrowest.entity.UserEntry;
 import com.metrowest.repo.ProductRepository;
 import com.metrowest.repo.UserRepository;
 import com.metrowest.util.TextValidator;
@@ -37,16 +37,8 @@ public class AdminController
 
     private BigDecimal convert_decimal(String decimal_string)
     {
-        var d = 0.0;
-        var bd = BigDecimal.ZERO;
-
-        try { d = Double.parseDouble(decimal_string); }
+        try { return BigDecimal.valueOf(Double.parseDouble(decimal_string)); }
         catch (NumberFormatException nme) { return null; }
-
-        try { bd = BigDecimal.valueOf(d); }
-        catch (NumberFormatException nme) { return null; }
-
-        return bd;
     }
 
     @GetMapping("/dashboard")
@@ -98,7 +90,7 @@ public class AdminController
             return "admin/failure";
         }
 
-        var user = new User();
+        var user = new UserEntry();
         user.setEmail(email);
         user.setUsername(username);
         user.setRole(role);
