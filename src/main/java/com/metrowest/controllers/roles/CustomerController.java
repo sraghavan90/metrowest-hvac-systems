@@ -2,9 +2,7 @@ package com.metrowest.controllers.roles;
 
 import com.metrowest.entity.Order;
 import com.metrowest.entity.OrderEntry;
-import com.metrowest.entity.OrderItems;
-import com.metrowest.entity.OrderStatus;
-import com.metrowest.entity.Product;
+import com.metrowest.entity.CustomerOrder;
 import com.metrowest.repo.OrderRepository;
 import com.metrowest.repo.ProductRepository;
 import com.metrowest.repo.UserRepository;
@@ -12,14 +10,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/customer")
@@ -38,17 +35,19 @@ public class CustomerController
         this.orderRepository = orderRepository;
     }
 
-    private List<OrderEntry> convert_items(Order order, OrderItems items)
+    private List<OrderEntry> convert_items(Order order, Map<String, String> items)
     {
         var entries = new ArrayList<OrderEntry>();
-        for (var entry : items.getQuantities().entrySet())
+        for (var entry : items.entrySet())
         {
-            var product = productRepository.findByName(entry.getKey())
+            long id = Long.parseLong(entry.getKey());
+            int qty = Integer.parseInt(entry.getValue());
+            var product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("unknown product: " + entry.getKey()));
             var order_entry = new OrderEntry();
             order_entry.setOrder(order);
             order_entry.setProduct(product);
-            order_entry.setQuantity(entry.getValue());
+            order_entry.setQuantity(qty);
             order_entry.setUnitPrice(product.getPrice());
             entries.add(order_entry);
         }
@@ -56,8 +55,7 @@ public class CustomerController
     }
 
     @PostMapping("/new_order")
-    public String new_order(Model model, Authentication authentication,
-                            @RequestParam("items") OrderItems items)
+    public String new_order(Model model, Authentication authentication, @ModelAttribute("items") CustomerOrder order)
     {
         var user = userRepository.findByUsername(authentication.getName());
         if (user.isEmpty())
@@ -65,24 +63,34 @@ public class CustomerController
             model.addAttribute("error", "user not found: " + authentication.getName());
             return "error";
         }
-        var order = new Order();
-        var saved = order;
-        try
+        if (order == null || order.getItems().isEmpty())
         {
-            var entries = convert_items(order, items);
-            order.getItems().addAll(entries);
-            order.setCustomer(user.get());
-            order.setStatus(OrderStatus.NEW);
-            saved = orderRepository.save(order);
-            orderRepository.flush();
-        }
-        catch (Exception e)
-        {
-            model.addAttribute("error", e.getMessage());
+            model.addAttribute("error", "order must contain at least one item");
             return "error";
         }
-        model.addAttribute("message", "order created: " + saved.getId());
-        return "customer/dashboard";
+//        var order = new Order();
+//        var saved = order;
+//        try
+//        {
+//            var entries = convert_items(order, items);
+//            order.getItems().addAll(entries);
+//            order.setCustomer(user.get());
+//            order.setStatus(OrderStatus.NEW);
+//            saved = orderRepository.save(order);
+//            orderRepository.flush();
+//        }
+//        catch (Exception e)
+//        {
+//            model.addAttribute("error", e.getMessage());
+//            return "error";
+//        }
+//        model.addAttribute("message", "order created: " + saved.getId());
+
+        order.getItems().forEach(System.out::println);
+
+        System.out.println("user: " + user.get().getUsername());
+        model.addAttribute("message", "DEBUG OK: " + order.getItems().size());
+        return "success";
     }
 
     @GetMapping("/dashboard")
@@ -95,9 +103,7 @@ public class CustomerController
             return "error";
         }
 
-        var products = productRepository.findAll().stream()
-            .map(Product::getName)
-            .toList();
+        var products = productRepository.findAll();
 
         var orders = orderRepository.findByCustomer(user.get());
         model.addAttribute("orders", orders);

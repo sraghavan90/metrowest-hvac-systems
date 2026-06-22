@@ -79,8 +79,6 @@ public class UserAccessController
             .map(GrantedAuthority::getAuthority)
             .toList();
 
-        System.out.println("principal: " + authentication.getPrincipal());
-
         var redirect = "/";
 
         if      (roles.contains("ROLE_ADMIN"))      { redirect = "/admin/dashboard"; }

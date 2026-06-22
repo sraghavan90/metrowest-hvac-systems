@@ -31,10 +31,29 @@
     </thead>
     <tbody>
     <tr th:each="product : ${products}">
-        <td th:text="${product}"></td>
+        <td th:text="${product.name}"></td>
     </tr>
     </tbody>
 </table>
+
+
+<h2>New Order</h2>
+<label> Add item to order:
+    <select id="product_select">
+        <option value="" disabled selected>Choose an item...</option>
+        <option th:each="item : ${products}"
+                th:value="${item.id}"
+                th:text="${item.name}">Item Name</option>
+    </select>
+</label>
+<form id="order_form" method="post" th:action="@{/customer/new_order}">
+    <input type="submit">
+</form>
+
+
+
+
+
 
 <h2>Orders</h2>
 <table>
@@ -56,5 +75,6 @@
     </tbody>
 </table>
 
+<script type="text/javascript" th:src="@{/js/product.js}"></script>
 </body>
 </html>
