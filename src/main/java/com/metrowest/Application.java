@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
-class Application
+public class Application
 {
-    static void main(String[] args)
+    public static void main(String[] args)
     {
         SpringApplication.run(Application.class, args);
     }
