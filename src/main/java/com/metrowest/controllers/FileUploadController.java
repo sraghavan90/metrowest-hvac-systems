@@ -15,24 +15,17 @@ import java.nio.file.Paths;
 @Controller
 public class FileUploadController
 {
-    // HIGH SEVERITY: Unrestricted file upload vulnerability
     @PostMapping("/admin/upload")
     public String uploadFile(@RequestParam("file") MultipartFile file, Model model)
     {
         try
         {
-            // No validation of file type or content
-            // Allows upload of executable files (.jsp, .class, etc.)
             String uploadDir = "/var/www/uploads/";
             String filename = file.getOriginalFilename();
-
-            // Path traversal vulnerability - no sanitization of filename
             File dest = new File(uploadDir + filename);
 
-            // Create parent directories if they don't exist
             dest.getParentFile().mkdirs();
 
-            // Write file without any security checks
             FileOutputStream fos = new FileOutputStream(dest);
             fos.write(file.getBytes());
             fos.close();
@@ -47,13 +40,11 @@ public class FileUploadController
         return "admin/upload_result";
     }
 
-    // HIGH SEVERITY: Arbitrary file deletion vulnerability
     @PostMapping("/admin/delete_file")
     public String deleteFile(@RequestParam("filename") String filename, Model model)
     {
         try
         {
-            // No validation - allows deletion of any file on the system
             File file = new File(filename);
 
             if (file.exists())
@@ -73,13 +64,11 @@ public class FileUploadController
         return "admin/delete_result";
     }
 
-    // HIGH SEVERITY: Directory listing vulnerability
     @PostMapping("/admin/list_directory")
     public String listDirectory(@RequestParam("path") String path, Model model)
     {
         try
         {
-            // Exposes system directory structure
             File dir = new File(path);
             File[] files = dir.listFiles();
 
@@ -100,14 +89,11 @@ public class FileUploadController
         return "admin/directory_listing";
     }
 
-    // HIGH SEVERITY: Unsafe file read with path traversal
     @PostMapping("/admin/read_file")
     public String readFile(@RequestParam("filepath") String filepath, Model model)
     {
         try
         {
-            // Path traversal - can read any file on system
-            // Example: ../../../../etc/passwd
             String content = new String(Files.readAllBytes(Paths.get(filepath)));
             model.addAttribute("content", content);
             model.addAttribute("filepath", filepath);

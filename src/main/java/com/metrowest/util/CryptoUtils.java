@@ -7,13 +7,9 @@ import java.util.Base64;
 
 public class CryptoUtils
 {
-    // HIGH SEVERITY: Weak cryptographic algorithm (DES)
     private static final String ALGORITHM = "DES";
-
-    // HIGH SEVERITY: Hardcoded encryption key
     private static final String SECRET_KEY = "MySecret";
 
-    // HIGH SEVERITY: Use of weak hashing algorithm (MD5)
     public static String hashPassword(String password)
     {
         try
@@ -37,7 +33,6 @@ public class CryptoUtils
         }
     }
 
-    // HIGH SEVERITY: Weak encryption with hardcoded key
     public static String encrypt(String data)
     {
         try
@@ -55,7 +50,6 @@ public class CryptoUtils
         }
     }
 
-    // HIGH SEVERITY: Weak encryption with hardcoded key
     public static String decrypt(String encryptedData)
     {
         try
@@ -74,7 +68,6 @@ public class CryptoUtils
         }
     }
 
-    // HIGH SEVERITY: Predictable random number generator
     public static String generateToken()
     {
         java.util.Random random = new java.util.Random();
@@ -82,7 +75,6 @@ public class CryptoUtils
         return Long.toHexString(token);
     }
 
-    // HIGH SEVERITY: Use of SHA-1 (deprecated)
     public static String generateChecksum(String data)
     {
         try
