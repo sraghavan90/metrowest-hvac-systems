@@ -33,9 +33,9 @@ public class AppInitializer implements CommandLineRunner
             admin.setPassword_hash(passwordEncoder.encode(password));
             admin.setRole(Role.ADMIN);
             userRepository.save(admin);
-            IO.println("========================================================");
-            IO.println("Generated Admin user with password: " + password);
-            IO.println("========================================================");
+            System.out.println("========================================================");
+            System.out.println("Generated Admin user with password: " + password);
+            System.out.println("========================================================");
         }
     }
 }
