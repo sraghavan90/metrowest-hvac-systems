@@ -1,6 +1,7 @@
 package com.metrowest.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -23,7 +24,15 @@ public class UserEntry
     @Column(nullable = false)
     private Role role;
 
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
     public UserEntry() { }
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 
     public Long getId() { return id; }
 
@@ -36,4 +45,5 @@ public class UserEntry
     public String getUsername()      { return username; }
     public String getPassword_hash() { return password_hash; }
     public Role getRole()            { return role; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
 }

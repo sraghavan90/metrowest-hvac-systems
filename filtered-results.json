@@ -1,0 +1,52 @@
+{
+   "_links": {
+      "root": {
+         "href": "/",
+         "name": "",
+         "templated": false
+      },
+      "self": {
+         "href": "/scans/5ca79114-9c54-4aff-b6a4-d48ceccb31cd/findings",
+         "name": "",
+         "templated": false
+      },
+      "help": {
+         "href": "https://docs.veracode.com/",
+         "name": "",
+         "templated": false
+      },
+      "create": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "start": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "details": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "upload": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "cancel": {
+         "href": "",
+         "name": "",
+         "templated": false
+      }
+   },
+   "scan_id": "5ca79114-9c54-4aff-b6a4-d48ceccb31cd",
+   "scan_status": "SUCCESS",
+   "message": "Scan successful. Results size: 42 bytes",
+   "modules": [
+      "JS files within veracode-auto-pack-metrowest-hvac-systems-js-no-pm.zip"
+   ],
+   "modules_count": 1,
+   "selected_modules": []
+}

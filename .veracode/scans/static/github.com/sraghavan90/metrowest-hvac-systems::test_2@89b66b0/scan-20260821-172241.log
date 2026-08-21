@@ -1,0 +1,43 @@
+📝 Scan log: /Users/sraghavan/code/metrowest-hvac-systems/.veracode/scans/static/github.com/sraghavan90/metrowest-hvac-systems::test_2@89b66b0/scan-20260821-172241.log
+
+
+Veracode Static Scan
+====================
+
+Asset:           github.com/sraghavan90/metrowest-hvac-systems
+Asset Narrative: github.com/sraghavan90/metrowest-hvac-systems::test_2
+Asset Snapshot:  github.com/sraghavan90/metrowest-hvac-systems::test_2@89b66b0
+
+Checking out ref 'HEAD' (89b66b0) to temp directory...
+Packaging artifacts from /Users/sraghavan/code/metrowest-hvac-systems/.veracode/tmp-89b66b0...
+  ✓ Packaged 1 artifacts
+    [1] genericpackagerjs-GenericPackagerJS (GenericPackagerJS) - veracode-auto-pack-tmp-89b66b0-js-no-pm.zip
+Caching 1 artifacts...
+
+Scanning 1 artifacts (parallel)...
+  [genericpackagerjs-GenericPackagerJS] Starting scan... (artifact: 3fb8cdce)
+  [genericpackagerjs-GenericPackagerJS] ✓ Complete (18.0s) - 0 findings
+
+Caching results...
+  ✓ Saved genericpackagerjs-GenericPackagerJS findings to cache
+  ✓ Saved 1 artifacts to cache
+Cleaning up temp directory: /Users/sraghavan/code/metrowest-hvac-systems/.veracode/tmp-89b66b0
+
+Scan Summary (fresh scan):
+  Snapshot: github.com/sraghavan90/metrowest-hvac-systems::test_2@89b66b0
+  Commit:   89b66b0 (test_2)
+  Findings: 0 total
+
+  Artifacts: 1 scanned
+
+
+✓ Results cached for commit 89b66b0
+  Next run will be instant!
+
+View findings:
+  veracode findings static list /Users/sraghavan/code/metrowest-hvac-systems
+  veracode findings static show /Users/sraghavan/code/metrowest-hvac-systems <id>
+  veracode findings static diff /Users/sraghavan/code/metrowest-hvac-systems --ref1 HEAD~1 --ref2 HEAD
+
+========================================
+Completed at: 2026-08-21T17:23:04-04:00
