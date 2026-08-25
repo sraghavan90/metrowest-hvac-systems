@@ -1,0 +1,7 @@
+packager:
+    projects:
+        metrowest-hvac-systems:
+            project_root: metrowest-hvac-systems
+            packager_manager_type: gradle
+            root_build_file: metrowest-hvac-systems/build.gradle
+            packager_manager_version: 9.3.0
